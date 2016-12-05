@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Channel" table="channel">
+    <indexes>
+      <index name="FK_channel_user" columns="owner"/>
+    </indexes>
+    <id name="channel" type="string" column="channel" length="50">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="created" type="datetime" column="created" nullable="false"/>
+    <field name="maxusers" type="integer" column="maxUsers" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="minusers" type="integer" column="minUsers" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="links" type="string" column="links" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="modes" type="string" column="modes" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="defaulttopic" type="string" column="defaulttopic" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="topicmask" type="string" column="topicmask" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="greeting" type="string" column="greeting" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="usergreeting" type="string" column="usergreeting" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dynlimit" type="integer" column="dynLimit" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="keepsync" type="integer" column="keepsync" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nodelete" type="integer" column="nodelete" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="owner" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="owner" referenced-column-name="auth"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="auth" target-entity="User" inversed-by="channel" fetch="LAZY">
+      <join-table name="user_stats">
+        <join-columns>
+          <join-column name="channel" referenced-column-name="channel"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="auth" referenced-column-name="auth"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

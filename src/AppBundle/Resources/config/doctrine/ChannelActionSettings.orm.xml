@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\ChannelActionSettings" table="channel_action_settings">
+    <id name="channel" association-key="true"/>
+    <field name="givevoice" type="integer" column="givevoice" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="giveop" type="integer" column="giveop" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowvoice" type="integer" column="allowvoice" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowop" type="integer" column="allowop" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowmodes" type="integer" column="allowmodes" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowkick" type="integer" column="allowkick" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowban" type="integer" column="allowban" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowtopic" type="integer" column="allowtopic" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="channel" target-entity="Channel" fetch="LAZY">
+      <join-columns>
+        <join-column name="channel" referenced-column-name="channel"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

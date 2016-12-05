@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Ban" table="ban">
+    <indexes>
+      <index name="FK_ban_user" columns="auth"/>
+      <index name="FK_ban_channel" columns="channel"/>
+      <index name="FK_ban_user_2" columns="setby"/>
+    </indexes>
+    <id name="host" type="string" column="host" length="50"/>
+    <id name="channel" association-key="true"/>
+    <field name="expires" type="datetime" column="expires" nullable="true"/>
+    <one-to-one field="channel" target-entity="Channel" fetch="LAZY">
+      <join-columns>
+        <join-column name="channel" referenced-column-name="channel"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="auth" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="auth" referenced-column-name="auth"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="setby" target-entity="User" fetch="LAZY">
+      <join-columns>
+        <join-column name="setby" referenced-column-name="auth"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
